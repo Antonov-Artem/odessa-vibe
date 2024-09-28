@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Organizer {
+  id       Int     @id @default(autoincrement())
+  fullName String
+  events   Event[]
+}
+
+model Participant {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  fullName  String
+  birthDate DateTime
+  source    String
+  events    Event[]
+}
+
+model Event {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String
+  date         DateTime
+  organizers   Organizer[]
+  participants Participant[]
+}
